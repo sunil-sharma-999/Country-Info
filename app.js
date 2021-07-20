@@ -33,7 +33,7 @@ function displayCountries(countries, cd) {
 
     countryEl.innerHTML = `
             <div>
-                <img src="${country.flag}" alt="Germany" />
+                <img src="${country.flag}" alt="flag" />
             </div>
             <div class="card-body">
                 <h3 class="country-name">${country.name}</h3>
@@ -55,8 +55,8 @@ function displayCountries(countries, cd) {
         `;
 
     countryEl.addEventListener('click', () => {
-      modal.style.display = 'flex';
       showCountryDetails(country, cd);
+      modal.style.display = 'flex';
     });
 
     countriesEl.appendChild(countryEl);
@@ -64,12 +64,12 @@ function displayCountries(countries, cd) {
 }
 
 function showCountryDetails(country, cd) {
-  const modalBody = modal.querySelector('.modal-body');
-  const modalImg = modal.querySelector('img');
+  const detailBody = modal.querySelector('.detail-body');
+  const detailImg = modal.querySelector('img');
 
-  modalImg.src = country.flag;
+  detailImg.src = country.flag;
 
-  modalBody.innerHTML = `
+  detailBody.innerHTML = `
         <h2 class='name'>${country.name}</h2>
         <div class='detail-left'>
         <p>
@@ -172,12 +172,12 @@ function displayCovid(cd) {
   });
 }
 
-// toggle theme - dark & light
+// toggle theme
 toggleBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
-// show and hide the filters (li tags)
+// show and hide the filters
 filterBtn.addEventListener('click', () => {
   filterBtn.classList.toggle('open');
 });
@@ -193,7 +193,6 @@ searchEl.addEventListener('input', (e) => {
 
   countryName.forEach((name) => {
     if (name.innerText.toLowerCase().includes(value.toLowerCase())) {
-      // .card -> .card-body -> .country-name
       name.parentElement.parentElement.style.display = 'block';
     } else {
       name.parentElement.parentElement.style.display = 'none';
@@ -201,7 +200,7 @@ searchEl.addEventListener('input', (e) => {
   });
 });
 
-// add a filter on the li's inside the .dropdown
+// add a filter
 regionFilters.forEach((filter) => {
   filter.addEventListener('click', () => {
     const value = filter.innerText;
@@ -209,7 +208,6 @@ regionFilters.forEach((filter) => {
 
     countryRegion.forEach((region) => {
       if (region.innerText.includes(value) || value === 'All') {
-        // .card -> .card-body -> .country-region
         region.parentElement.parentElement.style.display = 'block';
       } else {
         region.parentElement.parentElement.style.display = 'none';
