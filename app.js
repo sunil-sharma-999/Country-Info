@@ -55,8 +55,8 @@ function displayCountries(countries, cd) {
         `;
 
     countryEl.addEventListener('click', () => {
-      showCountryDetails(country, cd);
       modal.style.display = 'flex';
+      showCountryDetails(country, cd);
     });
 
     countriesEl.appendChild(countryEl);

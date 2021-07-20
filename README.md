@@ -29,8 +29,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Country Info Github](https://github.com/sunil-sharma-999/Country-Info)
+- Live Site URL: [Country Info Website](https://sunil-sharma-999.github.io/Country-Info/)
 
 ## My process
 
