@@ -18,7 +18,7 @@ async function getCountries() {
   const cd = await covid.json();
   const loading = document.querySelector('.loading');
   if (countries && cd) {
-    displayCountries(countries);
+    displayCountries(countries, cd);
     loading.style.display = 'none';
     displayCovid(cd);
   }
@@ -56,21 +56,22 @@ function displayCountries(countries, cd) {
 
     countryEl.addEventListener('click', () => {
       modal.style.display = 'flex';
-      showCountryDetails(country);
+      showCountryDetails(country, cd);
     });
 
     countriesEl.appendChild(countryEl);
   });
 }
 
-function showCountryDetails(country) {
+function showCountryDetails(country, cd) {
   const modalBody = modal.querySelector('.modal-body');
   const modalImg = modal.querySelector('img');
 
   modalImg.src = country.flag;
 
   modalBody.innerHTML = `
-        <h2>${country.name}</h2>
+        <h2 class='name'>${country.name}</h2>
+        <div class='detail-left'>
         <p>
             <strong>Native Name:</strong>
             ${country.nativeName}
@@ -91,6 +92,8 @@ function showCountryDetails(country) {
             <strong>Capital:</strong>
             ${country.capital}
         </p>
+        </div>
+        <div class='detail-right'>
         <p>
             <strong>Top Level Domain:</strong>
             ${country.topLevelDomain[0].slice(1).toUpperCase()}
@@ -101,10 +104,56 @@ function showCountryDetails(country) {
         </p>
         <p>
             <strong>Languages:</strong>
-            ${country.languages.map((language) => language.name)}
+            ${country.languages.map((language) => {
+              return ` ${language.name}`;
+            })}
         </p>
+        <p>
+            <strong>Borders:</strong>
+            ${country.borders.map((border) => {
+              return `  ${border}`;
+            })}
+        </p>
+        </div>
     `;
+  covidDetail(country, cd);
 }
+
+// covid detail
+function covidDetail(country, cd) {
+  const covidWrap = document.querySelector('.covid-detail');
+  cd.forEach((c) => {
+    if (country.name === c.country) {
+      covidWrap.innerHTML = `
+
+  <h2>Covid Detail</h2>
+  <div class='covid-left'>
+    <p><strong>Cases: </strong>${c.cases.toLocaleString()}
+    <p>
+
+    <p><strong>Deaths: </strong>${c.deaths.toLocaleString()}
+    <p>
+
+    <p><strong>Recovered: </strong>${c.recovered.toLocaleString()}
+    <p>
+    <p><strong>Active: </strong>${c.active.toLocaleString()}
+    <p>
+    <p><strong>Critical: </strong>${c.critical.toLocaleString()}
+    <p>
+
+  </div>
+  <div class='covid-right'>
+    <p><strong>Todat Cases: </strong>${c.todayCases.toLocaleString()}
+    <p>
+    <p><strong>Today Deaths: </strong>${c.todayDeaths.toLocaleString()}
+    <p>
+    <p><strong>Today Recovered: </strong>${c.todayRecovered.toLocaleString()}
+    <p>
+  </div>`;
+    }
+  });
+}
+
 //covid
 function displayCovid(cd) {
   const covid = document.querySelectorAll('.covid');

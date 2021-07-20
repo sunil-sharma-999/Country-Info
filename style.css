@@ -133,9 +133,9 @@ body.dark .btn-toggle .far {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   overflow: hidden;
-  margin: 40px;
+  margin: 2rem 1.4rem;
   max-width: 100%;
-  width: 260px;
+  width: 280px;
   align-self: flex-start;
 }
 
@@ -176,28 +176,128 @@ i.loading {
   right: 0;
   bottom: 0;
   z-index: 100;
+  overflow: scroll;
+  width: 100vw;
+  padding: 5rem 0;
 }
 
 .modal .container {
+  justify-self: center;
+  align-self: center;
   background-color: var(--background-el);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  display: grid;
+  grid-template-rows: max-content max-content;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'detail' 'covid';
+  width: 60vw;
 }
-
-.modal img {
-  max-width: 300px;
+.detail {
+  grid-area: detail;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'img' 'body';
+}
+.detail img {
+  max-width: 500px;
+  height: 200px;
+  justify-self: flex-start;
+  align-self: flex-start;
+  grid-area: img;
 }
 
 .modal-body {
-  padding: 30px;
+  padding: 2rem;
+  grid-area: body;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: max-content 1fr;
+  grid-template-areas: 'name name' 'dl dr';
+}
+.detail .name {
+  grid-area: name;
+}
+.detail-right {
+  grid-area: dr;
+}
+.detail-left {
+  grid-area: dl;
 }
 
+.covid-detail {
+  grid-area: covid;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'title title' 'left right';
+  padding: 0 2rem;
+}
+.covid-detail h1 {
+  grid-area: title;
+}
+.covid-left {
+  grid-area: left;
+}
+.covid-right {
+  grid-area: right;
+}
 .btn-close {
   background-color: var(--background-el);
   color: inherit;
   border: none;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 700px) {
+  .btn-toggle {
+    margin: 0.5rem 0;
+  }
+  .search {
+    margin: 0 0 1rem 0;
+  }
+  .card {
+    width: 280px;
+    margin: 2rem 1rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .modal .container {
+    width: 60vw;
+  }
+  .detail img {
+    width: 100%;
+    height: 100%;
+    justify-self: flex-start;
+    align-self: flex-start;
+    grid-area: img;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+    grid-auto-rows: repeat(3, max-content);
+    grid-template-areas: 'name' 'dl' 'dr';
+  }
+
+  .covid-detail {
+    grid-template-columns: 1fr;
+    grid-auto-rows: repeat(3, max-content);
+    grid-template-areas: 'title' 'left' 'right';
+  }
+}
+
+@media (max-width: 600px) {
+  .modal .container {
+    width: 80vw;
+    padding: 1rem;
+  }
+  .detail img {
+    width: 100%;
+    height: 100%;
+  }
 }
