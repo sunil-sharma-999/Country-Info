@@ -25,7 +25,14 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+<img src='./screenshots/light-home.png'>
+<img src='./screenshots/dark-home.png'>
+<img src='./screenshots/light-detail.png'>
+<img src='./screenshots/dark-detail.png'>
+<img src='./screenshots/filter.png' >
+<img src='./screenshots/search.png' >
+<img src='./screenshots/mobile.png' width='30%'>
+<img src='./screenshots/mobile-detail.png' width='30%'>
 
 ### Links
 
@@ -70,9 +77,12 @@ Users should be able to:
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/)
+- [CSS-TRICKS](https://css-tricks.com/)
+- [StackOverflow](https://stackoverflow.com/)
+- [Rest API Docs](https://restcountries.eu/)
+- [Open Disease Data API](https://corona.lmao.ninja/)
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
+- GitHub - [Sunil Sharma](https://github.com/sunil-sharma-999/)
