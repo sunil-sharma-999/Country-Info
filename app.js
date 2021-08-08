@@ -1,5 +1,4 @@
 const countriesEl = document.getElementById('countries');
-const toggleBtn = document.getElementById('toggle');
 const filterBtn = document.getElementById('filter');
 const regionFilters = filterBtn.querySelectorAll('li');
 const searchEl = document.getElementById('search');
@@ -33,7 +32,7 @@ function displayCountries(countries, cd) {
 
     countryEl.innerHTML = `
             <div>
-                <img src="${country.flag}" alt="flag" />
+                <img src="${country.flag}" />
             </div>
             <div class="card-body">
                 <h3 class="country-name">${country.name}</h3>
@@ -173,9 +172,13 @@ function displayCovid(cd) {
 }
 
 // toggle theme
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-});
+// toggleBtn.addEventListener('change', () => {
+//   document.body.classList.toggle('dark');
+// });
+
+const themeToggle = (val) => {
+  document.body.classList = `${val}`;
+};
 
 // show and hide the filters
 filterBtn.addEventListener('click', () => {

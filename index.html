@@ -10,25 +10,28 @@
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="style.css" />
-    <script src="app.js" defer></script>
     <script
       src="https://kit.fontawesome.com/b059c3cc38.js"
       crossorigin="anonymous"
       defer
     ></script>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="app.js" defer></script>
+
     <title>Country Info</title>
   </head>
-  <body>
+  <body class="theme1">
     <header>
       <div class="container">
-        <h1>Where in the world?</h1>
-        <button class="btn-toggle" id="toggle">
-          <i class="far fa-moon"></i>
-          <i class="fas fa-moon"></i>
-          Dark Mode
-        </button>
+        <h1>Country Info</h1>
+        <div class="themes">
+          <div class="theme1" onclick="themeToggle('theme1')"></div>
+          <div class="theme2" onclick="themeToggle('theme2')"></div>
+          <div class="theme3" onclick="themeToggle('theme3')"></div>
+          <div class="theme4" onclick="themeToggle('theme4')"></div>
+          <div class="theme5" onclick="themeToggle('theme5')"></div>
+        </div>
       </div>
     </header>
 
@@ -66,7 +69,7 @@
           <button class="btn-close" id="close">
             <i class="fas fa-times"></i>
           </button>
-          <img src="" alt="" />
+          <img src="" />
           <div class="detail-body"></div>
         </div>
         <div class="covid-detail"></div>
