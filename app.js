@@ -142,7 +142,7 @@ function covidDetail(country, cd) {
 
   </div>
   <div class='covid-right'>
-    <p><strong>Todat Cases: </strong>${c.todayCases.toLocaleString()}
+    <p><strong>Today Cases: </strong>${c.todayCases.toLocaleString()}
     <p>
     <p><strong>Today Deaths: </strong>${c.todayDeaths.toLocaleString()}
     <p>
