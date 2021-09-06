@@ -10,7 +10,7 @@ getCountries();
 async function getCountries() {
   const res = await fetch('https://restcountries.eu/rest/v2/all');
   const countries = await res.json();
-  const covid = await fetch(`https://corona.lmao.ninja/v2/countries/`, {
+  const covid = await fetch(`https://disease.sh/v3/covid-19/countries`, {
     method: 'GET',
     redirect: 'follow',
   });
@@ -50,7 +50,11 @@ function displayCountries(countries, cd) {
                 </p>
                 <p class='covid'>
                 </p>
+                <p class='more'>
+                  More Info
+                </p>
             </div>
+           
         `;
 
     countryEl.addEventListener('click', () => {
@@ -113,6 +117,7 @@ function showCountryDetails(country, cd) {
               return `  ${border}`;
             })}
         </p>
+         <a class='more' href="https://en.wikipedia.org/wiki/${country.name}" target="_blank" rel="noopener noreferrer">Wikipedia</a>
         </div>
     `;
   covidDetail(country, cd);
@@ -121,10 +126,11 @@ function showCountryDetails(country, cd) {
 // covid detail
 function covidDetail(country, cd) {
   const covidWrap = document.querySelector('.covid-detail');
+  covidWrap.innerHTML = '';
   cd.forEach((c) => {
-    if (country.name === c.country) {
+    if (country.alpha3Code === c.countryInfo.iso3) {
+      console.log(country.alpha3Code === c.countryInfo.iso3);
       covidWrap.innerHTML = `
-
   <h2>Covid Detail</h2>
   <div class='covid-left'>
     <p><strong>Cases: </strong>${c.cases.toLocaleString()}
@@ -148,8 +154,12 @@ function covidDetail(country, cd) {
     <p>
     <p><strong>Today Recovered: </strong>${c.todayRecovered.toLocaleString()}
     <p>
-  </div>`;
+    <a class='more' href="http://google.com/search?q=${c.country}+covid+statistics" target="_blank" rel="noopener noreferrer">More Data</a>
+  </div>
+  <p><strong>Last Updated:</strong> ${Date(c.Date)}</p>
+  `;
     }
+   
   });
 }
 

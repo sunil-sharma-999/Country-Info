@@ -41,6 +41,10 @@ h1 {
   margin: 0;
 }
 
+a.more {
+  text-decoration: none;
+}
+
 body,
 body.theme1 {
   background-color: #202c37;
@@ -48,6 +52,18 @@ body.theme1 {
   font-family: "Nunito Sans", sans-serif;
   margin: 0;
   letter-spacing: 1px;
+}
+
+body .more,
+body.theme1 .more {
+  color: white;
+  border: 1.5px dashed white;
+  opacity: 0.8;
+  padding: 0.2rem 1rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 20px;
 }
 
 body header,
@@ -210,6 +226,11 @@ body.theme1 .container.countries .card {
   -ms-flex-item-align: start;
       align-self: flex-start;
   font-family: inherit;
+}
+
+body .container.countries .card:hover,
+body.theme1 .container.countries .card:hover {
+  cursor: pointer;
 }
 
 body .container.countries .card img,
@@ -456,6 +477,12 @@ body.theme2 {
   color: #111517;
 }
 
+body.theme2 .more {
+  color: #111517;
+  border-color: #111517;
+  opacity: 0.9;
+}
+
 body.theme2 header {
   background-color: white;
 }
@@ -487,6 +514,12 @@ body.theme2 .modal .container {
 body.theme3 {
   background-color: #589ccc;
   color: #f2f2f2;
+}
+
+body.theme3 .more {
+  color: #f2f2f2;
+  border-color: #f2f2f2;
+  opacity: 0.9;
 }
 
 body.theme3 header {
@@ -538,6 +571,12 @@ body.theme5 {
   background: -webkit-gradient(linear, left top, right top, from(#ff5100), to(#fcb045));
   background: linear-gradient(90deg, #ff5100 0%, #fcb045 100%);
   color: #1a1a1a;
+}
+
+body.theme5 .more {
+  color: #1a1a1a;
+  border-color: #1a1a1a;
+  opacity: 1;
 }
 
 body.theme5 header {
