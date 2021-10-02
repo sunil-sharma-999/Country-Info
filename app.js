@@ -7,8 +7,10 @@ const closeBtn = document.getElementById('close');
 
 getCountries();
 
+searchEl.value = '';
+
 async function getCountries() {
-  const res = await fetch('https://restcountries.eu/rest/v2/all');
+  const res = await fetch('https://restcountries.com/v3.1/all');
   const countries = await res.json();
   const covid = await fetch(`https://disease.sh/v3/covid-19/countries`, {
     method: 'GET',
@@ -32,10 +34,10 @@ function displayCountries(countries, cd) {
 
     countryEl.innerHTML = `
             <div>
-                <img src="${country.flag}" />
+                <img src="${country.flags.svg}" />
             </div>
             <div class="card-body">
-                <h3 class="country-name">${country.name}</h3>
+                <h3 class="country-name">${country.name.common}</h3>
                 <p>
                     <strong>Population:</strong>
                     ${country.population.toLocaleString('en-US')}
@@ -70,14 +72,15 @@ function showCountryDetails(country, cd) {
   const detailBody = modal.querySelector('.detail-body');
   const detailImg = modal.querySelector('img');
 
-  detailImg.src = country.flag;
-
+  detailImg.src = country.flags.svg;
   detailBody.innerHTML = `
-        <h2 class='name'>${country.name}</h2>
+        <h2 class='name'>${country.name.common}</h2>
         <div class='detail-left'>
         <p>
             <strong>Native Name:</strong>
-            ${country.nativeName}
+            ${Object.keys(country.name.nativeName).map((n) => {
+              return `  ${country.name.nativeName[n].official}`;
+            })}
         </p>
         <p>
             <strong>Population:</strong>
@@ -87,37 +90,60 @@ function showCountryDetails(country, cd) {
             <strong>Region:</strong>
             ${country.region}
         </p>
-        <p>
+        
+        ${
+          country.subregion
+            ? `<p>
             <strong>Sub Region:</strong>
             ${country.subregion}
-        </p>
+        </p>`
+            : ''
+        }
         <p>
             <strong>Capital:</strong>
             ${country.capital}
         </p>
+        <p>
+            <strong>Independent:</strong>
+            ${country.independent}
+        </p>
         </div>
+
+
         <div class='detail-right'>
         <p>
             <strong>Top Level Domain:</strong>
-            ${country.topLevelDomain[0].slice(1).toUpperCase()}
+            ${country.tld[0]}
         </p>
         <p>
             <strong>Currencies:</strong>
-            ${country.currencies.map((currency) => currency.code)}
+             ${Object.keys(country.currencies).map((c) => {
+               return `${country.currencies[c].name}(${country.currencies[c].symbol})`;
+             })}
         </p>
         <p>
             <strong>Languages:</strong>
-            ${country.languages.map((language) => {
-              return ` ${language.name}`;
+            ${Object.keys(country.languages).map((l) => {
+              return `  ${country.languages[l]}`;
             })}
         </p>
+            ${
+              country.borders
+                ? `<p>
+                    <strong>Borders:</strong>
+                    ${country.borders.map((border) => {
+                      return `  ${border}`;
+                    })}</p>`
+                : ''
+            }
+      
         <p>
-            <strong>Borders:</strong>
-            ${country.borders.map((border) => {
-              return `  ${border}`;
-            })}
+            <strong>Area:</strong>
+            ${country.area.toLocaleString('en-US')} km2
         </p>
-         <a class='more' href="https://en.wikipedia.org/wiki/${country.name}" target="_blank" rel="noopener noreferrer">Wikipedia</a>
+         <a class='more' href="https://en.wikipedia.org/wiki/${
+           country.name.common
+         }" target="_blank" rel="noopener noreferrer">Wikipedia</a>
         </div>
     `;
   covidDetail(country, cd);
@@ -128,38 +154,53 @@ function covidDetail(country, cd) {
   const covidWrap = document.querySelector('.covid-detail');
   covidWrap.innerHTML = '';
   cd.forEach((c) => {
-    if (country.alpha3Code === c.countryInfo.iso3) {
-      console.log(country.alpha3Code === c.countryInfo.iso3);
+    if (country.cca3 === c.countryInfo.iso3) {
+      console.log(country.cca3);
       covidWrap.innerHTML = `
   <h2>Covid Detail</h2>
   <div class='covid-left'>
     <p><strong>Cases: </strong>${c.cases.toLocaleString()}
-    <p>
+    </p>
 
     <p><strong>Deaths: </strong>${c.deaths.toLocaleString()}
-    <p>
+    </p>
 
     <p><strong>Recovered: </strong>${c.recovered.toLocaleString()}
-    <p>
+    </p>
     <p><strong>Active: </strong>${c.active.toLocaleString()}
-    <p>
+    </p>
     <p><strong>Critical: </strong>${c.critical.toLocaleString()}
-    <p>
+    </p>
+    <p><strong>Tests: </strong>${c.tests.toLocaleString()}
+    </p>
+    <p><strong>Cases Per One Million: </strong>${c.casesPerOneMillion.toLocaleString()}
+    </p>
+    <p><strong>Deaths Per One Million: </strong>${c.deathsPerOneMillion.toLocaleString()}
+    </p>
+    <p><strong>Tests Per One Million: </strong>${c.testsPerOneMillion.toLocaleString()}
+    </p>
 
   </div>
   <div class='covid-right'>
     <p><strong>Today Cases: </strong>${c.todayCases.toLocaleString()}
-    <p>
+    </p>
     <p><strong>Today Deaths: </strong>${c.todayDeaths.toLocaleString()}
-    <p>
+    </p>
     <p><strong>Today Recovered: </strong>${c.todayRecovered.toLocaleString()}
-    <p>
-    <a class='more' href="http://google.com/search?q=${c.country}+covid+statistics" target="_blank" rel="noopener noreferrer">More Data</a>
+    </p>
+    <p><strong>Active Per One Million: </strong>${c.activePerOneMillion.toLocaleString()}
+    </p>
+    <p><strong>Recovered Per One Million: </strong>${c.recoveredPerOneMillion.toLocaleString()}
+    </p>
+    <p><strong>Critical Per One Million: </strong>${c.criticalPerOneMillion.toLocaleString()}
+    </p>
+    <a class='more' href="http://google.com/search?q=${
+      c.country
+    }+covid+statistics" target="_blank" rel="noopener noreferrer">More Data</a>
   </div>
   <p><strong>Last Updated:</strong> ${Date(c.Date)}</p>
   `;
     }
-   
   });
 }
 
@@ -170,10 +211,10 @@ function displayCovid(cd) {
     cd.forEach((cd) => {
       if (cd.country === c.parentElement.firstElementChild.textContent) {
         c.innerHTML = `<strong>Covid Cases:</strong> ${cd.cases.toLocaleString(
-          'en-US'
+          'en-US',
         )} 
         <p> <strong>Recovered: </strong> ${cd.recovered.toLocaleString(
-          'en-US'
+          'en-US',
         )}</p>
         `;
       }
